@@ -99,10 +99,10 @@
                 <form method="POST" action="/query">
                 <section class="code-box">
                     <section class="code-box-demo">
-                        <h1 class="ant-typography">代码向量数据库</h1>
+                        <h1 class="ant-typography">文本向量数据库</h1>
                         <h4 class="ant-typography">查询:</h4>
                         <label for="query"></label>
-                        <textarea placeholder="代码查询" class="ant-input" style="overflow-y: hidden; resize: none; height: 182px;" id="query" name="query"></textarea>
+                        <textarea placeholder="文本查询" class="ant-input" style="overflow-y: hidden; resize: none; height: 182px;" id="query" name="query"></textarea>
                         <input type="submit" value="Submit" class="ant-btn ant-btn-primary">
                     </section>
                 </section>
@@ -111,22 +111,21 @@
             <main class="ant-layout-content css-12jzuas" style="margin: 24px 16px; padding: 24px; min-height: 280px; background: rgb(255, 255, 255);">
 			<div class="container">
                     {% if results %}
-                        <h2 > 查询最匹配代码 </h2>
+                        <h2 > 查询最匹配文本 </h2>
                         <pre>
                         <div class="code">
                             <table>
                                 <tr>
                                     <th>ID</th>
                                     <th>距离</th>
-                                    <th>代码</th>
                                     <th>语义</th>
                                 </tr>
                                 {% for item in results %}
                                 <tr>
                                     <td>{{ item.id }}</td>
                                     <td>{{ item.distance }}</td>
-                                    <td>{{ item.code }}</td>
-                                    <td>{{ item.semantics }}</td>
+                                    <td>{{ item.text }}</td>
+
                                 </tr>
                                 {% endfor %}
                             </table>

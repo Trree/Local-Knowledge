@@ -99,9 +99,9 @@
         <form method="POST" action="/code">
             <section class="code-box">
                 <section class="code-box-demo">
-                    <h1 class="ant-typography">代码向量数据库</h1>
-                    <h4 class="ant-typography">上传代码函数:</h4>
-                    <textarea placeholder="请输入代码" class="ant-input"
+                    <h1 class="ant-typography">文本向量数据库</h1>
+                    <h4 class="ant-typography">上传文本函数:</h4>
+                    <textarea placeholder="请输入文本" class="ant-input"
                         style="overflow-y: hidden; resize: none; height: 182px;" id="code" name="code"></textarea>
                     <input type="submit" value="Submit" class="ant-btn ant-btn-primary">
                 </section>
@@ -111,7 +111,7 @@
         <pre>
             <div class="ant-result ant-result-success">
                 {% if results %}
-                <div class="ant-result-title">代码语义</div>
+                <div class="ant-result-title">文本语义</div>
                 {% for item in results %}
                     <div class="ant-result-subtitle"><code>{{ item }}</code></div>
                 {% endfor %}

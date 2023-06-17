@@ -8,31 +8,31 @@ from src.codevecdb.milvus_vectordb import batchInsert
 
 def parseCodeAndInsert(code):
     code_list = [code]
-    semantics = batchParseCodeAndInsert(code_list)
-    return semantics
+    batchParseTextAndInsert(code_list)
+    return 
 
 
-def batchParseCodeAndInsert(code_list):
-    if not code_list:
-        return ["code_list empty"]
-    result_dict, semantics = getSemanticsAndVector(code_list, False)
+def batchParseTextAndInsert(text_list):
+    if not text_list:
+        return ["text_list empty"]
+    result_dict= getSemanticsAndVector(text_list, False)
     batchInsert(result_dict)
-    return semantics
+  
 
 
-def getSemanticsAndVector(code_list, asyncRequest):
-    if asyncRequest:
-        with ThreadPoolExecutor() as executor:
-            futures = [executor.submit(llm.getFunctionSemantics, item) for item in code_list]
-            semantics = [future.result() for future in futures]
-    else:
-        semantics = []
-        for item in code_list:
-            semantics.append(llm.getFunctionSemantics(item))
-
-    codeVector = get_semantics_vector(semantics)
+def getSemanticsAndVector(text_list, asyncRequest):
+    # if asyncRequest:
+    #     with ThreadPoolExecutor() as executor:
+    #         futures = [executor.submit(llm.getFunctionSemantics, item.page_content) for item in text_list]
+    #         semantics = [future.result() for future in futures]
+    # else:
+    #     semantics = []
+    #     for item in text_list:
+    #         semantics.append(llm.getFunctionSemantics(item.page_content))
+    
+    textVector = get_semantics_vector(text_list)
     result_dict = {}
-    for code, semantics_item, codeVector_item in zip(code_list, semantics, codeVector):
-        result_dict[code] = {"semantics": semantics_item, "codeVector": codeVector_item}
-    return result_dict, semantics
+    for txt, textVector_item in zip(text_list, textVector):
+        result_dict[txt] = {"txt": txt, "textVector": textVector_item}
+    return result_dict
 
