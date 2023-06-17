@@ -46,8 +46,7 @@ def create_collection(name):
 
     default_fields = [
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=False),
-        FieldSchema(name="semantics", dtype=DataType.VARCHAR, max_length=1000),
-        FieldSchema(name="code", dtype=DataType.VARCHAR, max_length=5000),
+        FieldSchema(name="text", dtype=DataType.VARCHAR, max_length=5000),
         FieldSchema(name=_VECTOR_FIELD_NAME, dtype=DataType.FLOAT_VECTOR, description='Embedding vectors', dim=dim)
     ]
 
@@ -96,9 +95,8 @@ def batch_insert(collection, i, code_result):
     # for i, (code, result) in enumerate(code_result.items()):
     data = [
         [i + j for j in range(len(code_result))],
-        [code_result[key]["semantics"] for key in code_result.keys()],
         [str(key) for key in code_result.keys()],
-        [code_result[key]["codeVector"] for key in code_result.keys()]
+        [code_result[key]["textVector"] for key in code_result.keys()]
     ]
     print(data)
     collection.insert(data)
@@ -147,7 +145,7 @@ def search(collection, search_vectors, top_k=5):
 
     try:
         results = collection.search([search_vectors], _VECTOR_FIELD_NAME, search_param,
-                                    output_fields=['semantics', 'code'],
+                                    output_fields=['text'],
                                     limit=top_k)
     except Exception as e:
         return [e]
@@ -158,8 +156,8 @@ def search(collection, search_vectors, top_k=5):
             data = {
                 'id': res.id,
                 'distance': res.distance,
-                'code': res.entity.get("code"),
-                'semantics': res.entity.get("semantics")
+                'text': res.entity.get("text"),
+              
             }
             queryCode.append(data)
     for item in queryCode:
@@ -227,7 +225,7 @@ def searchRecentData(top_k=100):
     try:
         collection = get_collection(name=collection_name)
         load_collection(collection)
-        results = collection.query(expr="id > 0", limit=top_k, output_fields=["semantics", "code"])
+        results = collection.query(expr="id > 0", limit=top_k, output_fields=["text"])
     except Exception as e:
         return [e]
     for item in results:

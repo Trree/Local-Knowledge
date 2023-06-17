@@ -20,6 +20,8 @@ class Config(metaclass=Singleton):
         self.vector_embeddings = os.getenv("vector_embeddings")
         self.milvus_collection_name = os.getenv("milvus_collection_name")
         self.milvus_collection_dim = os.getenv("milvus_collection_dim")
+        self.chunk_size = int(os.getenv("chunk_size")) if os.getenv("chunk_size") else 1000
+        self.chunk_overlap = int(os.getenv("chunk_overlap")) if os.getenv("chunk_overlap") else 0
 
     def set_openai_api_key(self, value: str) -> None:
         self.openai_api_key = value
@@ -56,3 +58,5 @@ def check_openai_api_key() -> None:
         )
         print("You can get your key from https://platform.openai.com/account/api-keys")
         exit(1)
+        
+conf = Config()
