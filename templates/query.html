@@ -111,20 +111,18 @@
             <main class="ant-layout-content css-12jzuas" style="margin: 24px 16px; padding: 24px; min-height: 280px; background: rgb(255, 255, 255);">
 			<div class="container">
                     {% if results %}
-                        <h2 > 查询最匹配文本 </h2>
+                        <h2 > 回答 </h2>
                         <pre>
                         <div class="code">
                             <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>距离</th>
-                                    <th>语义</th>
+                                    <th>回复</th>
+                                    
                                 </tr>
                                 {% for item in results %}
                                 <tr>
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ item.distance }}</td>
-                                    <td>{{ item.text }}</td>
+                                    <td>{{ item.answer }}</td>
+                                    
 
                                 </tr>
                                 {% endfor %}
