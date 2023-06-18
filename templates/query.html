@@ -63,7 +63,7 @@
                         </svg>
                      </span>
                      <span class="ant-menu-title-content">
-                         <a href="/code">插入数据</a>
+                         <a href="/code">提交文本</a>
                      </span>
                   </li>
                   <li class="ant-menu-item ant-menu-item-selected" role="menuitem" tabindex="-1" style="padding-left: 24px;" data-menu-id="rc-menu-uuid-59451-1-3">
@@ -73,7 +73,7 @@
                         </svg>
                      </span>
                      <span class="ant-menu-title-content">
-                         <a href="/query">查询数据</a>
+                         <a href="/query">提问咨询</a>
                      </span>
                   </li>
                    <li class="ant-menu-item" role="menuitem" tabindex="-1" style="padding-left: 24px;" data-menu-id="rc-menu-uuid-59451-1-3">
@@ -99,11 +99,11 @@
                 <form method="POST" action="/query">
                 <section class="code-box">
                     <section class="code-box-demo">
-                        <h1 class="ant-typography">文本向量数据库</h1>
-                        <h4 class="ant-typography">查询:</h4>
+ 
+                        <h4 class="ant-typography">问题:</h4>
                         <label for="query"></label>
-                        <textarea placeholder="文本查询" class="ant-input" style="overflow-y: hidden; resize: none; height: 182px;" id="query" name="query"></textarea>
-                        <input type="submit" value="Submit" class="ant-btn ant-btn-primary">
+                        <textarea placeholder="提问" class="ant-input" style="overflow-y: hidden; resize: none; height: 182px;" id="query" name="query"></textarea>
+                        <input type="submit" value="提交" class="ant-btn ant-btn-primary">
                     </section>
                 </section>
             </form>
@@ -116,14 +116,13 @@
                         <div class="code">
                             <table>
                                 <tr>
+                                    <th>问题</th>
                                     <th>回复</th>
-                                    
                                 </tr>
                                 {% for item in results %}
                                 <tr>
+                                    <td>{{ item.question }}</td><br>
                                     <td>{{ item.answer }}</td>
-                                    
-
                                 </tr>
                                 {% endfor %}
                             </table>
