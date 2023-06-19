@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request
 
-from src.codevecdb.parse_code import parseCodeAndInsert
-from src.codevecdb.search_code import searchCode, getAllCode
+from src.codevecdb.parse_text import parseCodeAndInsert
+from src.codevecdb.search_text import searchCode
 from src.codevecdb.split.split_dispatch import split_file_to_chunks
-from src.codevecdb.milvus_vectordb import create_connection
-    
+
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-create_connection()
 
 
 @app.route('/code', methods=['GET', 'POST'])
@@ -39,7 +37,8 @@ def upload_file():
 
 @app.route('/')
 def hello_world():
-    results = getAllCode()
+    results = []
+    #esults = getAllCode()
     return render_template('index.html', results=results)
 
 

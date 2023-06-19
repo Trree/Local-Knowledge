@@ -1,10 +1,11 @@
 import os
 
 from langchain.document_loaders import TextLoader
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 
-from src.codevecdb.config.Config import conf
-from src.codevecdb.parse_code import batchParseTextAndInsert
+from src.codevecdb.config.Config import conf, Config
+from src.codevecdb.milvus_vectordb import insert_db
 
 
 def split_file_to_chunks(file):
@@ -18,8 +19,6 @@ def split_file_to_chunks(file):
     text_splitter = CharacterTextSplitter(chunk_size=conf.chunk_size, chunk_overlap=conf.chunk_overlap)
     docsList = text_splitter.split_documents(documents)
 
-    textList = []
-    for doc in docsList:
-        textList.append(doc.page_content)
-    batchParseTextAndInsert(textList)
+    vector_store = insert_db(docsList)
+    print(vector_store)
 
