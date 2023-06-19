@@ -3,6 +3,14 @@ from langchain.llms import OpenAI
 from langchain import PromptTemplate
 import os
 import openai
+
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.schema import Document
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationalRetrievalChain
+
 if os.getenv("OPENAI_PROXY"):
     OPENAI_PROXY = os.getenv("OPENAI_PROXY")
     openai.proxy = OPENAI_PROXY
@@ -25,11 +33,10 @@ def getTextSemantics(text):
     return llm(prompt.format(text=text))
 
 
-def getAnswer(textList, question):
+def getAnswer(text_list, question):
     llm = OpenAI()
-    split_documents = []
     documents = []
-    for textObj in textList:
+    for textObj in text_list:
         doc = Document(page_content=textObj["text"], metadata={"source": "database"})
         documents.append(doc)
     text_splitter = CharacterTextSplitter()

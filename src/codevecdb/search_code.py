@@ -1,14 +1,14 @@
-
-from src.codevecdb import langchianEmbedding
+from src.codevecdb.embeddings.langchainEmbedding import get_semantics_vector
 from src.codevecdb.milvus_vectordb import searchVectorCode, searchRecentData
 from src.codevecdb.llm import getAnswer
 
+
 def searchCode(question, top_k=5):
     semantics_list = [question]
-    codeVectorList = langchianEmbedding.get_semantics_vector(semantics_list)
+    codeVectorList = get_semantics_vector(semantics_list)
     dataBaseData = searchVectorCode(codeVectorList, top_k)
     answer = getAnswer(dataBaseData, question)
-    result = {"question":question, "answer":answer}
+    result = {"question": question, "answer": answer}
     print(result)
     return result
 
