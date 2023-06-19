@@ -2,17 +2,15 @@
 
 ## 介绍
 
-🌍 [_READ THIS IN ENGLISH_](README.md)
+🤖支持本地知识库,向量模型和️llm默认都是使用openai,
+向量数据为[milvus](https://github.com/milvus-io/milvus),
+支持上传文件和查询结果
 
-🤖️使用完全开源的[milvus](https://github.com/milvus-io/milvus)实现本地的文本向量库，解决本地，个人，公司级别文本本地向量化，
-支持根据文本文件，以函数级别切分文本，建立函数和功能级别的文本向量库。
-使用ChatGPT来获取函数语义，通过[Sentence-BERT](https://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/)来实现词嵌入
 
 ## 使用场景
-- 建立个人或者公司级别的向量文本库 
-- 支持文本文件上传建立函数功能级别向量文本库
+- 支持建立自己的知识库的整理和搜索
 - 支持通过 prompt 搜索得到自己的文本
-- 支持通过需求文档生成框架和文本
+
 
 ### 需求
 - [x] 自定义大小切分文本
@@ -47,9 +45,9 @@ $ conda env remove -p  /your_path/env_name
 
 ```shell
 # Clone the repository
-$ git clone https://github.com/Trree/code-vector-database.git
+$ git clone https://github.com/Trree/Local-Knowledge.git
 
-$ cd code-vector-database
+$ cd Local-Knowledge
 # Install dependencies
 $ pip install -r requirements.txt
 ```
