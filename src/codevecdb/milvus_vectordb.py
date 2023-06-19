@@ -16,3 +16,15 @@ def insert_db(docs_list):
         connection_args={"uri": milvus_uri, "user": user, "password": password}
     )
     return vector_store
+
+
+def search_db(question):
+    cfg = Config()
+    milvus_uri = cfg.milvus_uri
+    user = cfg.milvus_user
+    password = cfg.milvus_password
+    embeddings = OpenAIEmbeddings(model="ada")
+    docs = Milvus(embedding_function=embeddings,
+                  connection_args={"uri": milvus_uri, "user": user, "password": password}) \
+        .similarity_search(question)
+    return docs

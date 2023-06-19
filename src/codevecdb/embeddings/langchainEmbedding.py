@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 
-from src.codevecdb.embeddings.bert_vector import semantics_vector, batch_get_vector
+from src.codevecdb.embeddings.bert_vector import batch_get_vector
 from src.codevecdb.config.Config import Config
 from src.codevecdb.embeddings.openai_embeddings import  batchGetEmbedding
 

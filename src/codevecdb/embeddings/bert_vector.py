@@ -1,7 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
-
 from langchain.embeddings import HuggingFaceEmbeddings
-
 from src.codevecdb.config.Config import Config
 
 
