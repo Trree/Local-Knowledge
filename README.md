@@ -55,7 +55,7 @@ $ pip install -r requirements.txt
 ### 2.部署 Milvus
 
   - [milvus免费试用](https://cloud.zilliz.com/login?redirect=/projects/MA==/databases)
-  - [docker本地快速部署](https://milvus.io/docs/v2.0.x/install_standalone-docker.md)
+  - [docker本地快速部署](https://milvus.io/docs/v2.2.x/install_standalone-docker.md)
 
 
 ### 3. 配置
