@@ -11,6 +11,8 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 
+from langchain.vectorstores import Milvus
+
 if os.getenv("OPENAI_PROXY"):
     OPENAI_PROXY = os.getenv("OPENAI_PROXY")
     openai.proxy = OPENAI_PROXY
@@ -22,11 +24,13 @@ def getAnswer(text_list, question):
     for textObj in text_list:
         doc = Document(page_content=textObj["text"], metadata={"source": "database"})
         documents.append(doc)
-    text_splitter = CharacterTextSplitter()
-    split_documents = text_splitter.split_documents(documents)
+    
     embeddings = OpenAIEmbeddings()
-    vectorstore = Chroma.from_documents(split_documents, embeddings)
+    
+    vectorstore = Chroma.from_documents(documents, embeddings)
+
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+    
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(),
