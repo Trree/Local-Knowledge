@@ -1,8 +1,10 @@
 
-from langchain.llms import OpenAI
-from langchain import PromptTemplate
 import os
+
 import openai
+from langchain import PromptTemplate
+from langchain.llms import OpenAI
+
 if os.getenv("OPENAI_PROXY"):
     OPENAI_PROXY = os.getenv("OPENAI_PROXY")
     openai.proxy = OPENAI_PROXY

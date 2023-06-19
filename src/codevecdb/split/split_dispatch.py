@@ -1,10 +1,11 @@
 import os
 
-from src.codevecdb.parse_code import batchParseTextAndInsert
-from src.codevecdb.split.get_language import get_language
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
+
 from src.codevecdb.config.Config import conf
+from src.codevecdb.parse_code import batchParseTextAndInsert
+
 
 def split_file_to_chunks(file):
     print(file)
