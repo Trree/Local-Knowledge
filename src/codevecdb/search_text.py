@@ -1,7 +1,7 @@
 from src.codevecdb.llm.llm import getAnswer
 
 
-def searchCode(question, top_k=5):
+def search_question(question):
     answer = getAnswer(question)
     result = {"question": question, "answer": answer}
     print(result)
