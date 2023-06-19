@@ -38,7 +38,6 @@ def upload_file():
 @app.route('/')
 def hello_world():
     results = []
-    #esults = getAllCode()
     return render_template('index.html', results=results)
 
 

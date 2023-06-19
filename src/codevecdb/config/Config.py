@@ -17,7 +17,6 @@ class Config(metaclass=Singleton):
         self.milvus_user = os.getenv("milvus_user")
         self.milvus_password = os.getenv("milvus_password")
         self.milvus_collection_ttl = os.getenv("milvus_collection_ttl")
-        self.vector_embeddings = os.getenv("vector_embeddings")
         self.milvus_collection_name = os.getenv("milvus_collection_name")
         self.milvus_collection_dim = os.getenv("milvus_collection_dim")
         self.chunk_size = int(os.getenv("chunk_size")) if os.getenv("chunk_size") else 1000
@@ -42,8 +41,6 @@ class Config(metaclass=Singleton):
     def set_milvus_collection_ttl(self, value: str) -> None:
         self.milvus_collection_ttl = value
 
-    def set_vector_embeddings(self, value: str) -> None:
-        self.vector_embeddings = value
 
     def set_milvus_collection_name(self, value: str) -> None:
         self.milvus_collection_name = value

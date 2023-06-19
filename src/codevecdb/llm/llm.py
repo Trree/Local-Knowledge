@@ -5,8 +5,8 @@ import openai
 from langchain import PromptTemplate
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.llms import OpenAI
-from src.codevecdb.db.milvus_vectordb import search_db
 
+from src.codevecdb.db.milvus_vectordb import search_db
 
 if os.getenv("OPENAI_PROXY"):
     OPENAI_PROXY = os.getenv("OPENAI_PROXY")
@@ -15,6 +15,8 @@ if os.getenv("OPENAI_PROXY"):
 
 def getAnswer(question):
     docs = search_db(question)
+    if len(docs) == 0:
+        return "向量数据库中没有查询到结果"
 
     my_question_prompt_template = """Use the following portion of a long document to see if any of the text is relevant to answer the question. 
     Return any relevant text verbatim.
