@@ -24,7 +24,7 @@ def query_code():
     if request.method == 'POST':
         query = request.form['query']
         results = searchCode(query)
-        return render_template('query.html', results=results)
+        return render_template('query.html', results=[results])
     return render_template('query.html')
 
 

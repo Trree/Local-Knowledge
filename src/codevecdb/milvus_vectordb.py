@@ -220,7 +220,7 @@ def searchRecentData(top_k=100):
     collection_name = cfg.milvus_collection_name
 
     if not has_collection(collection_name):
-        return ["请插入数据创建数据集合"]
+        return ["请提交文本创建数据集合"]
 
     try:
         collection = get_collection(name=collection_name)
