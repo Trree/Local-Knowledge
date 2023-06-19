@@ -5,3 +5,4 @@ openai~=0.27.8
 pymilvus~=2.2.8
 Flask~=2.3.2
 tiktoken~=0.4.0
+tenacity~=8.2.2

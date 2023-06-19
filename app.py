@@ -1,20 +1,18 @@
 from flask import Flask, render_template, request
 
-from src.codevecdb.parse_code import parseCodeAndInsert
-from src.codevecdb.search_code import searchCode, getAllCode
+from src.codevecdb.parse_text import parse_text_and_insert
+from src.codevecdb.search_text import search_question
 from src.codevecdb.split.split_dispatch import split_file_to_chunks
-from src.codevecdb.milvus_vectordb import create_connection
-    
+
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-create_connection()
 
 
 @app.route('/code', methods=['GET', 'POST'])
 def post_code():
     if request.method == 'POST':
         code_str = request.form['code']
-        results = parseCodeAndInsert(code_str)
+        results = parse_text_and_insert(code_str)
         return render_template('code.html', results=results)
     return render_template('code.html')
 
@@ -23,7 +21,7 @@ def post_code():
 def query_code():
     if request.method == 'POST':
         query = request.form['query']
-        results = searchCode(query)
+        results = search_question(query)
         return render_template('query.html', results=[results])
     return render_template('query.html')
 
@@ -39,7 +37,8 @@ def upload_file():
 
 @app.route('/')
 def hello_world():
-    results = getAllCode()
+    results = []
+    #esults = getAllCode()
     return render_template('index.html', results=results)
 
 
