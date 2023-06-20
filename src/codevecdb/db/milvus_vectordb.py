@@ -1,7 +1,9 @@
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Milvus
 from tenacity import retry, wait_random_exponential, stop_after_attempt
+
 from src.codevecdb.config.Config import Config
+from src.codevecdb.llmcache import cache_initialize
 
 cfg = Config()
 connection_args_uri = {
@@ -16,6 +18,8 @@ connection_args_host = {
     "user": cfg.milvus_user,
     "password": cfg.milvus_password
 }
+
+cache_initialize()
 
 
 @retry(reraise=True, wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))

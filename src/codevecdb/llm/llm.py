@@ -8,11 +8,13 @@ from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.llms import OpenAI
 
 from src.codevecdb.db.milvus_vectordb import search_db
+from src.codevecdb.llmcache import cache_initialize
 
 if os.getenv("OPENAI_PROXY"):
     OPENAI_PROXY = os.getenv("OPENAI_PROXY")
     openai.proxy = OPENAI_PROXY
 
+cache_initialize()
 
 def getAnswer(question):
     docs = search_db(question)

@@ -1,37 +1,38 @@
 from gptcache import cache
+from gptcache.embedding import OpenAI
 from gptcache.manager import VectorBase, get_data_manager, CacheBase
 from gptcache.similarity_evaluation import SearchDistanceEvaluation
-from langchain.embeddings import OpenAIEmbeddings
-
 from src.codevecdb.config.Config import Config
 
-embeddings = OpenAIEmbeddings(model="ada")
-cache_base = CacheBase('sqlite')
 
-cfg = Config()
-connection_args_uri = {
-    "uri": cfg.milvus_uri,
-    "user": cfg.milvus_user,
-    "password": cfg.milvus_password
-}
+def cache_initialize():
+    print("start init cache")
+    openai = OpenAI()
+    cache_base = CacheBase('sqlite')
 
-connection_args_host = {
-    "host": cfg.milvus_host,
-    "port": cfg.milvus_port,
-    "user": cfg.milvus_user,
-    "password": cfg.milvus_password
-}
+    cfg = Config()
+    print(cfg.milvus_uri + " " + cfg.milvus_user + ":" + cfg.milvus_password)
+    if cfg.milvus_uri:
+        vector_base = VectorBase('milvus', uri=cfg.milvus_uri,
+                                 user=cfg.milvus_user,
+                                 password=cfg.milvus_password,
+                                 dimension=openai.dimension,
+                                 collection_name=cfg.milvus_collection_name)
+    else:
+        vector_base = VectorBase('milvus',
+                                 host=cfg.milvus_host,
+                                 port=cfg.milvus_port,
+                                 user=cfg.milvus_user,
+                                 password=cfg.milvus_password,
+                                 dimension=openai.dimension,
+                                 collection_name=cfg.milvus_collection_name)
 
-if cfg.milvus_uri:
-    vector_base = VectorBase('milvus', host=cfg.milvus_host, port=cfg.milvus_port, dimension=1596, collection_name='chatbot')
-else:
-    vector_base = VectorBase('milvus', host='127.0.0.1', port='19530', dimension=1596, collection_name='chatbot')
+    data_manager = get_data_manager(cache_base, vector_base)
 
-data_manager = get_data_manager(cache_base, vector_base)
+    cache.init(
+        embedding_func=openai.to_embeddings,
+        data_manager=data_manager,
+        similarity_evaluation=SearchDistanceEvaluation())
 
-cache.init(
-    embedding_func=embeddings,
-    data_manager=data_manager,
-    similarity_evaluation=SearchDistanceEvaluation())
-
-cache.set_openai_key()
+    cache.set_openai_key()
+    print("success init cache")
