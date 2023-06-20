@@ -6,3 +6,5 @@ pymilvus~=2.2.11
 Flask~=2.3.2
 tiktoken~=0.4.0
 tenacity~=8.2.2
+
+gptcache~=0.1.32

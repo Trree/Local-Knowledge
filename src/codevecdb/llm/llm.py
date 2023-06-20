@@ -2,6 +2,7 @@
 import os
 
 import openai
+from gptcache.adapter.langchain_models import LangChainLLMs
 from langchain import PromptTemplate
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.llms import OpenAI
@@ -19,15 +20,16 @@ def getAnswer(question):
         return "向量数据库中没有查询到结果"
 
     my_question_prompt_template = """Use the following portion of a long document to see if any of the text is relevant to answer the question. 
-    Return any relevant text verbatim.
-    {context}
-    Question: {question}
-    Relevant text, if any:"""
+        Return any relevant text verbatim.
+        {context}
+        Question: {question}
+        Relevant text, if any:"""
     MY_QUESTION_PROMPT = PromptTemplate(
         template=my_question_prompt_template, input_variables=["context", "question"]
     )
 
-    chain = load_qa_with_sources_chain(OpenAI(temperature=0), chain_type="map_reduce",
+    llm = LangChainLLMs(llm=OpenAI(temperature=0))
+    chain = load_qa_with_sources_chain(llm, chain_type="map_reduce",
                                        return_intermediate_steps=True, question_prompt=MY_QUESTION_PROMPT)
     result = chain({"input_documents": docs, "question": question}, return_only_outputs=True)
 
