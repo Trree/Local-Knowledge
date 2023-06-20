@@ -30,7 +30,8 @@ def getAnswer(question):
         template=my_question_prompt_template, input_variables=["context", "question"]
     )
 
-    llm = LangChainLLMs(llm=OpenAI(temperature=0))
+    #llm = LangChainLLMs(llm=OpenAI(temperature=0))
+    llm=OpenAI(temperature=0)
     chain = load_qa_with_sources_chain(llm, chain_type="map_reduce",
                                        return_intermediate_steps=True, question_prompt=MY_QUESTION_PROMPT)
     result = chain({"input_documents": docs, "question": question}, return_only_outputs=True)

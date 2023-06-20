@@ -11,13 +11,12 @@ def cache_initialize():
     cache_base = CacheBase('sqlite')
 
     cfg = Config()
-    print(cfg.milvus_uri + " " + cfg.milvus_user + ":" + cfg.milvus_password)
     if cfg.milvus_uri:
         vector_base = VectorBase('milvus', uri=cfg.milvus_uri,
                                  user=cfg.milvus_user,
                                  password=cfg.milvus_password,
                                  dimension=openai.dimension,
-                                 collection_name=cfg.milvus_collection_name)
+                                 collection_name="milvus_cache")
     else:
         vector_base = VectorBase('milvus',
                                  host=cfg.milvus_host,
@@ -25,7 +24,7 @@ def cache_initialize():
                                  user=cfg.milvus_user,
                                  password=cfg.milvus_password,
                                  dimension=openai.dimension,
-                                 collection_name=cfg.milvus_collection_name)
+                                 collection_name="milvus_cache")
 
     data_manager = get_data_manager(cache_base, vector_base)
 
