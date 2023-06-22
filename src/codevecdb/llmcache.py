@@ -34,7 +34,7 @@ def cache_initialize():
         pre_embedding_func=get_content_func,
         embedding_func=openai.to_embeddings,
         data_manager=data_manager,
-        similarity_evaluation=SearchDistanceEvaluation(max_distance=1))
+        similarity_evaluation=SearchDistanceEvaluation(max_distance=0.5, positive=True))
 
     cache.set_openai_key()
     print("success init cache")

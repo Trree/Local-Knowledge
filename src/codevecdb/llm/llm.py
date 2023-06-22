@@ -35,6 +35,7 @@ def getAnswer(question):
     chain = load_qa_with_sources_chain(llm, chain_type="map_reduce",
                                        return_intermediate_steps=True, question_prompt=MY_QUESTION_PROMPT)
     result = chain({"input_documents": docs, "question": question}, return_only_outputs=True)
+    print(question + ":" + str(docs))
 
     return result["output_text"]
 
