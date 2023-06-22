@@ -8,7 +8,6 @@ from src.codevecdb.split.split_dispatch import split_file_to_chunks
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.debug = True
 
 
 @app.before_request
