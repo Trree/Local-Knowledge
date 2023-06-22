@@ -1,5 +1,5 @@
 colorama~=0.4.6
-langchain~=0.0.192
+langchain==0.0.205
 python-dotenv~=1.0.0
 openai~=0.27.8
 pymilvus~=2.2.11
