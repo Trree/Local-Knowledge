@@ -73,3 +73,15 @@ $ pip install -r requirements.txt
 
 - 运行 `python app.py`.
 - 浏览器中输入 `127.0.0.1:5000` 
+
+### 贡献
+
+**随时欢迎您的贡献**
+
+- 每个更新都新建分支开发，测试完成后才合并主分支
+- 分支名使用 feature/[issue] 的格式,[issue]为更新的说明
+
+
+### 联系
+ - [slack](https://join.slack.com/t/myschool-ac49437/shared_invite/zt-1y18jt50j-0YY7mslWC0z99ywh4MT6AQ)
+ - [discussions](https://github.com/Trree/Local-Knowledge/discussions)
